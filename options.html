@@ -13,14 +13,14 @@
       </style>
       <script src="js/jquery-1.7.1.min.js"></script>
       <script src="js/select2.js"></script>
-      <script src="js/garlic.min.js">
+      <script src="js/garlic.min.js"></script>
       <script src="options.js"></script>
       <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
       <link rel="stylesheet" type="text/css" href="css/select2.css"/>
    </head>
-   <body>
+      <body> 
       Choose a library::<br/>
-      <form data-persist="garlic" onClick="saveLibrary();">
+      <form id="choose-library" data-persist="garlic">
          <select id="library" name="library" style="width:300px" class="populate">
             <option value="austin.bibliocommons.com">Austin Public Library</option>
             <option value="barrie.bibliocommons.com">Barrie Public Library</option>
@@ -76,7 +76,7 @@
             <option value="wppl.bibliocommons.com">West Perth Public Library</option>
             <option value="yprl.bibliocommons.com">Yarra Plenty Regional Library</option>
          </select>
-         <button id="save-library" type="submit" class="btn btn-primary"/>Save</button>
+         <button id="library-save" type="submit" class="btn btn-primary"/>Save</button>
       </form>
   </body>
 </html>
