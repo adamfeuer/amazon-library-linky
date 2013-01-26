@@ -1,12 +1,14 @@
 
 a:focus {
    outline: none;
-/*    outline: -webkit-focus-ring-color auto 20px; */
 }
 
-a {
-  border: none;
-  margin: 0px;
-  padding: 0px;
-  outline: 1px solid black;
+btn:focus {
+   outline: none;
+}
+
+.center {
+ margin:0 auto;
+ float: none;
+ text-align: center;
 }

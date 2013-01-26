@@ -8,6 +8,7 @@
                  "16" : "img/book16.png"
              },
    "permissions": [
+      "tabs",
       "http://*.bibliocommons.com/",
       "http://labs.oclc.org/"
    ],
@@ -16,8 +17,11 @@
        "default_title": "Amazon Bibliocommons Linky",
        "default_icon":  { "19" : "img/book19.png",
                           "38" : "img/book38.png"
-                        },
-       "default_popup": "popup.html"
+                        }
+   },
+   "background": {
+     "scripts": ["background.js"],
+     "persistent": false
    },
    "manifest_version": 2
 }
