@@ -2,6 +2,11 @@
    "name": "Amazon Bibliocommons",
    "version": "0.1",
    "description": "A version of the SPL Amazon Linky that can switch between Bibliocommons libraries.",
+   "icons" :  {  
+                "128" : "img/book128.png",
+                 "48" : "img/book48.png",
+                 "16" : "img/book16.png"
+             },
    "permissions": [
       "http://*.bibliocommons.com/",
       "http://labs.oclc.org/"
@@ -9,9 +14,10 @@
    "options_page": "options.html",
    "browser_action": {
        "default_title": "Amazon Bibliocommons Linky",
-       "default_icon": "icon.png",
+       "default_icon":  { "19" : "img/book19.png",
+                          "38" : "img/book38.png"
+                        },
        "default_popup": "popup.html"
    },
-   "manifest_version": 2,
-   "content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'"
+   "manifest_version": 2
 }
