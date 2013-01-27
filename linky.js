@@ -1,13 +1,26 @@
 
+var WORLDCAT_ISBN_SEARCH_URL = 'http://xisbn.worldcat.org/webservices/xid/isbn/';
 var DONE = 4;
+var libraryServer = 'seattle.bibliocommons.com'; 
+var libraryBaseName = 'Seattle Public Library';
+var libraryName = libraryBaseName;
+var libraryIsbnUrlPattern = 'http://' + libraryServer + '/search?custom_query=Identifier%3A'
+var libraryTitleUrlPattern = 'http://' + libraryServer + '/search?t=title&search_category=title&q='
+
+function getLibraryServerAndCall(nextFunction) {
+   chrome.extension.sendMessage({method: "getLocalStorage", key: "libraryServer"}, function(response) {
+      console.log('libraryServer: ' + response.data);
+      libraryServer = response.data;
+      libraryBaseName = libraryServer;
+      libraryName = libraryBaseName; // TODO: should be name, not servername
+      libraryIsbnUrlPattern = 'http://' + libraryServer + '/search?custom_query=Identifier%3A'
+      libraryTitleUrlPattern = 'http://' + libraryServer + '/search?t=title&search_category=title&q='
+      return nextFunction();
+   });
+}
 
 (function(){
    console.log('Amazon Seattle Public Library Linky');  
-
-   var libraryBaseName = 'Seattle Public Library';
-   var libraryName = 'the ' + libraryBaseName;
-   var libraryIsbnUrlPattern = 'http://seattle.bibliocommons.com/search?custom_query=Identifier%3A'
-   var libraryTitleUrlPattern = 'http://seattle.bibliocommons.com/search?t=title&search_category=title&q='
 
 //library statuses, text may need to be changed for other libraries
 //check that the text on the result page of your library matches the text below
@@ -25,19 +38,22 @@ var DONE = 4;
    var foundCount = 0;
 
    if (isbn!=0){
-      createStatusAndLibraryHTML();
-      updateStatusHTML('Searching ' + libraryName + '...');
-
-      getStatusAllISBNs(isbn);
+      getLibraryServerAndCall(main);
    }
    return;
+
+function main() {
+   createStatusAndLibraryHTML();
+   updateStatusHTML('Searching ' + libraryName + '...');
+   getStatusAllISBNs(isbn);
+
+}
 
 
 //get all ISBNs for this book and write to global var isbns
 //then call getBookStatuses
 function getStatusAllISBNs(isbn) {
-   //var url = 'http://old-xisbn.oclc.org/xid/isbn/' + isbn;
-   var url = 'http://xisbn.worldcat.org/webservices/xid/isbn/' + isbn;
+   var url = WORLDCAT_ISBN_SEARCH_URL + isbn;
    console.log('Searching for isbns: ' + url);
    var async = true;
    var xhr = new XMLHttpRequest();
@@ -152,80 +168,6 @@ function getBookStatus(libraryUrlPattern, isbn){
    }
    xhr.send();
 
-/*
-   GM_xmlhttpRequest
-      ({
-      method:'GET',
-      url: libraryUrlPattern + isbn,
-      onload:function(results) {
-         page = results.responseText;
-         if ( libraryNotFound.test(page) ){
-            getBookStatuses();
-         }
-         //if there are holds
-         else if ( libraryHolds.test(page) ) {
-            //hold info no longer available on first results page
-
-            setLibraryHTML(
-               libraryUrlPattern, isbn,
-               "On hold.", "No copies currently available at "
-               + libraryName,
-               "#3399FF"
-               );
-            foundCount++;
-            getBookStatuses();
-         }
-         else if ( libraryCheckedIn.test(page) )
-            {
-            setLibraryHTML(
-               libraryUrlPattern, isbn,
-               "On the shelf now!",
-               "Available now in " + libraryName,
-               "green" 
-//             "#2bff81" //light green
-               );
-            foundCount++;
-            getBookStatuses();
-            }
-         else if ( libraryOnOrder.test(page) )
-            {
-            setLibraryHTML(
-               libraryUrlPattern, isbn,
-               "On order!",
-               "On order at " + libraryName,
-               "#AA7700"  // dark yellow
-//             "#ffffac"  //light yellow
-               );
-            foundCount++;
-            getBookStatuses();
-            }                    
-
-         else if ( libraryElectronic.test(page) )
-            {
-            setLibraryHTML(
-               libraryUrlPattern, isbn,
-               "On the e-shelf now!",
-               "Digital version available now at "+ libraryName,
-               "green" 
-//             "#2bff81" //light green
-               );
-            foundCount++;
-            getBookStatuses();
-            }
-         else
-            {
-            setLibraryHTML(
-               libraryUrlPattern, isbn,
-               "Error",
-               "Error checking at "+ libraryName, 
-               "orange"
-               );
-            foundCount++;
-            getBookStatuses();
-            }
-         }
-      });
-*/
 }
 
 

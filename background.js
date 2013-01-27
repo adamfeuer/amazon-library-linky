@@ -27,8 +27,31 @@ chrome.extension.onConnect.addListener(function(port) {
   });
 });
 
+function setItem(key, value) {
+   localStorage.setItem(key, value);
+}
+
+function getItem(key) {
+   return localStorage.getItem(key);
+}
+
 // Called when the user clicks on the browser action icon.
 chrome.browserAction.onClicked.addListener(function(tab) {
    openOrFocusOptionsPage();
+});
+
+// allow access to localStorage via message passing
+chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
+    if (request.method == "getLocalStorage") {
+      console.log("bg get localStorage- key: " + request.key);
+      console.log("bg get val: " + getItem(request.key));
+      sendResponse({data: getItem(request.key)});
+    } else if (request.method == "setLocalStorage") {
+      console.log("bg set local: " + request.key + " " + request.value);
+      setItem(request.key, request.value);
+      console.log("bg test get: " + getItem(request.key));
+      sendResponse({data: "SUCCESS"});
+    } else
+      sendResponse({}); // snub them.
 });
 

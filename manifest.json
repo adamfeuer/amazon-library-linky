@@ -1,7 +1,7 @@
 {
    "name": "Amazon Bibliocommons",
    "version": "0.1",
-   "description": "A version of the SPL Amazon Linky that can switch between Bibliocommons libraries.",
+   "description": "This extension searches libraries for books that you are viewing on Amazon.com. Works with any Bibliocommons library.",
    "icons" :  {  
                  "16" : "img/book16.png",
                  "48" : "img/book48.png",
@@ -10,7 +10,6 @@
    "permissions": [
       "tabs",
       "http://*.bibliocommons.com/*",
-      "http://old-xisbn.oclc.org/*",
       "http://xisbn.worldcat.org/*"
    ],
    "options_page": "options.html",
