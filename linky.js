@@ -3,17 +3,24 @@ $.getScript("constants.js", function(){});
 var WORLDCAT_ISBN_SEARCH_URL = 'http://xisbn.worldcat.org/webservices/xid/isbn/';
 var DONE = 4;
 var libraryServer = '';
-var libraryBaseName = 'Seattle Public Library';
+var libraryBaseName = '';
 var libraryName = libraryBaseName;
 var libraryIsbnUrlPattern = 'http://' + libraryServer + '/search?custom_query=Identifier%3A'
 var libraryTitleUrlPattern = 'http://' + libraryServer + '/search?t=title&search_category=title&q='
 
+function getLibraryNameAndCall(nextFunction) {
+   chrome.extension.sendMessage({method: "getLocalStorage", key: LIBRARY_NAME }, function(response) {
+      console.log(LIBRARY_NAME + ": " + response.data);
+      libraryBaseName = response.data;
+      libraryName = "the " + libraryBaseName; 
+      return nextFunction();
+   });
+}
+
 function getLibraryServerAndCall(nextFunction) {
-   chrome.extension.sendMessage({method: "getLocalStorage", key: LIBRARY_IDENTIFIER}, function(response) {
+   chrome.extension.sendMessage({method: "getLocalStorage", key: LIBRARY_IDENTIFIER }, function(response) {
       console.log(LIBRARY_IDENTIFIER + ": " + response.data);
       libraryServer = response.data;
-      libraryBaseName = libraryServer;
-      libraryName = libraryBaseName; // TODO: should be name, not servername
       libraryIsbnUrlPattern = 'http://' + libraryServer + '/search?custom_query=Identifier%3A'
       libraryTitleUrlPattern = 'http://' + libraryServer + '/search?t=title&search_category=title&q='
       return nextFunction();
@@ -21,7 +28,7 @@ function getLibraryServerAndCall(nextFunction) {
 }
 
 (function(){
-   console.log('Amazon Seattle Public Library Linky');  
+   console.log('Amazon Public Library Linky');  
 
 //library statuses, text may need to be changed for other libraries
 //check that the text on the result page of your library matches the text below
@@ -39,7 +46,7 @@ function getLibraryServerAndCall(nextFunction) {
    var foundCount = 0;
 
    if (isbn!=0){
-      getLibraryServerAndCall(main);
+      getLibraryNameAndCall(getLibraryServerAndCall(main));
    }
    return;
 
