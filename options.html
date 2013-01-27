@@ -2,18 +2,10 @@
 <html>
    <head>
       <title>Amazon Public Library Linky</title>
-      <style>
-         body {
-            overflow: hidden;
-            margin: 0px;
-            padding: 0px;
-            background: white;
-            font-family: sans-serif;
-         }
-      </style>
       <script src="js/jquery-1.7.1.min.js"></script>
       <script src="js/bootstrap.min.js"></script>
       <script src="js/select2.js"></script>
+      <script src="constants.js"></script>
       <script src="options.js"></script>
       <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
       <link rel="stylesheet" type="text/css" href="css/select2.css"/>
@@ -26,7 +18,7 @@
             <h3><img src="img/book48.png"/> Amazon Public Library Linky</h3>
             <p>&nbsp;</p>
       Choose a library:<br/>
-      <form id="choose-library" data-persist="garlic">
+      <form id="choose-library">
          <select id="library" name="library" style="width:300px" class="populate">
             <option value="austin.bibliocommons.com">Austin Public Library</option>
             <option value="barrie.bibliocommons.com">Barrie Public Library</option>
@@ -82,7 +74,6 @@
             <option value="wppl.bibliocommons.com">West Perth Public Library</option>
             <option value="yprl.bibliocommons.com">Yarra Plenty Regional Library</option>
          </select>
-         <button id="library-save" type="submit" class="btn btn-primary"/>Save</button>
       </form>
       <p>   
          When you are looking at an Amazon product page, this extension will search the library selected above and display a link to it in the page.
@@ -116,7 +107,7 @@
                            <ul>
                               <li><a href="http://jquery.com/">JQuery</a> - the Javascript Swiss Army knife</li> 
                               <li><a href="http://twitter.github.com/bootstrap/">Bootstrap</a> - CSS framework to make your websites and apps look great!</li> 
-                              <li><a href="http://ivaynberg.github.com/select2/">Select2</a> - great Javascript library for select forms</li> 
+                              <li><a href="http://ivaynberg.github.com/select2/">Select2</a> - great Javascript library for select drop-down lists</li> 
                               <li><a href="http://thenounproject.com/noun/book/#icon-No2768" target="_blank">Book icon</a> designed by <a href="http://thenounproject.com/somerandomdude" target="_blank">P.J. Onori</a> (from The Noun Project)</li>
                            </ul>
                         </p>

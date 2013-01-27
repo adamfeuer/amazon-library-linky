@@ -1,24 +1,20 @@
-var LIBRARY_IDENTIFIER = 'libraryIdentifier';
-var background = chrome.extension.getBackgroundPage();
+$.getScript("constants.js", function(){});
 
-$(document).ready(function() { 
- });
-
-function save(select) {
+function save(e) {
    var libraryServer = $('#library').val();
-   //alert('bar: ' + libraryServer);
-   if (window.localStorage == null) {
-      alert('Local storage is required for using options.');
-      return;
-    }
-    window.localStorage[LIBRARY_IDENTIFIER] = libraryServer;
+   window.localStorage[LIBRARY_IDENTIFIER] = libraryServer;
 }
 
-function main() {
-  $("#library").select2().select2('val', window.localStorage[LIBRARY_IDENTIFIER]);
+function saveDefaultLibary() {
+   $("#library").select2().select2('val', window.localStorage[LIBRARY_IDENTIFIER]);
+}
+
+function addChangeListenerToSelect() {
+   $("#library").change(save);
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-   main();
-   document.querySelector('#library-save').addEventListener('click', save);
+   saveDefaultLibary();
+   addChangeListenerToSelect();
 });
+

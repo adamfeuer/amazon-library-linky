@@ -1,8 +1,8 @@
+$.getScript("constants.js", function(){});
 
-var LIBRARY_IDENTIFIER = 'libraryIdentifier';
 var WORLDCAT_ISBN_SEARCH_URL = 'http://xisbn.worldcat.org/webservices/xid/isbn/';
 var DONE = 4;
-var libraryServer = 'seattle.bibliocommons.com'; 
+var libraryServer = '';
 var libraryBaseName = 'Seattle Public Library';
 var libraryName = libraryBaseName;
 var libraryIsbnUrlPattern = 'http://' + libraryServer + '/search?custom_query=Identifier%3A'
