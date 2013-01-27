@@ -1,4 +1,4 @@
-Amazon Public Library Linky Chrome Extension
+Amazon Library Linky Chrome Extension
 =================
 
 When you are looking at an Amazon product page, this extension will search the library selected above and display a link to it in the page.
@@ -6,7 +6,7 @@ When you are looking at an Amazon product page, this extension will search the l
 Credits
 -------
 
-The Amazon Public Library Linky is based on the on the SPL Linky userscript for Greasemonkey, which includes work by:
+The Amazon Library Linky is based on the on the SPL Linky userscript for Greasemonkey, which includes work by:
 
 Carrick Mundell
 Fat Knowledge
