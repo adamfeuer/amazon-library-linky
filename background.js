@@ -1,3 +1,5 @@
+var DEFAULT_LIBRARY = 'seattle.bibliocommons.com';
+var LIBRARY_IDENTIFIER = 'libraryIdentifier';
 
 function openOrFocusOptionsPage() {
    var optionsUrl = chrome.extension.getURL('options.html'); 
@@ -6,7 +8,6 @@ function openOrFocusOptionsPage() {
       for (var i=0; i < extensionTabs.length; i++) {
          if (optionsUrl == extensionTabs[i].url) {
             found = true;
-            console.log("tab id: " + extensionTabs[i].id);
             chrome.tabs.update(extensionTabs[i].id, {"selected": true});
          }
       }
@@ -15,6 +16,7 @@ function openOrFocusOptionsPage() {
       }
    });
 }
+
 chrome.extension.onConnect.addListener(function(port) {
   var tab = port.sender.tab;
   // This will get called by the content script we execute in
@@ -28,11 +30,38 @@ chrome.extension.onConnect.addListener(function(port) {
 });
 
 function setItem(key, value) {
-   localStorage.setItem(key, value);
+   window.localStorage[key] = value;
 }
 
 function getItem(key) {
-   return localStorage.getItem(key);
+   return window.localStorage[key];
+}
+
+function onInstall() {
+   console.log("Extension Installed");
+   setItem(LIBRARY_IDENTIFIER, DEFAULT_LIBRARY);
+}
+
+function onUpdate() {
+   console.log("Extension Updated");
+}
+
+function getVersion() {
+   var details = chrome.app.getDetails();
+   return details.version;
+}
+
+// Check if the version has changed.
+var currVersion = getVersion();
+var prevVersion = localStorage['version']
+if (currVersion != prevVersion) {
+   // Check if we just installed this extension.
+   if (typeof prevVersion == 'undefined') {
+      onInstall();
+   } else {
+      onUpdate();
+   }
+   localStorage['version'] = currVersion;
 }
 
 // Called when the user clicks on the browser action icon.
@@ -43,13 +72,9 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 // allow access to localStorage via message passing
 chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.method == "getLocalStorage") {
-      console.log("bg get localStorage- key: " + request.key);
-      console.log("bg get val: " + getItem(request.key));
       sendResponse({data: getItem(request.key)});
     } else if (request.method == "setLocalStorage") {
-      console.log("bg set local: " + request.key + " " + request.value);
       setItem(request.key, request.value);
-      console.log("bg test get: " + getItem(request.key));
       sendResponse({data: "SUCCESS"});
     } else
       sendResponse({}); // snub them.

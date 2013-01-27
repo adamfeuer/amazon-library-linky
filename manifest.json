@@ -1,6 +1,6 @@
 {
    "name": "Amazon Bibliocommons",
-   "version": "0.1",
+   "version": "0.2",
    "description": "This extension searches libraries for books that you are viewing on Amazon.com. Works with any Bibliocommons library.",
    "icons" :  {  
                  "16" : "img/book16.png",

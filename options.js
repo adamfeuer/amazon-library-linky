@@ -1,4 +1,4 @@
-
+var LIBRARY_IDENTIFIER = 'libraryIdentifier';
 var background = chrome.extension.getBackgroundPage();
 
 $(document).ready(function() { 
@@ -11,16 +11,11 @@ function save(select) {
       alert('Local storage is required for using options.');
       return;
     }
-    window.localStorage.libraryServer = libraryServer;
+    window.localStorage[LIBRARY_IDENTIFIER] = libraryServer;
 }
 
 function main() {
-   if (window.localStorage == null) {
-      alert("LocalStorage must be enabled for using options.");
-      return;
-  }
-  //alert("foo: " + window.localStorage.libraryServer);
-  $("#library").select2().select2('val', window.localStorage.libraryServer);
+  $("#library").select2().select2('val', window.localStorage[LIBRARY_IDENTIFIER]);
 }
 
 document.addEventListener('DOMContentLoaded', function () {

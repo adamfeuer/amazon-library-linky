@@ -1,4 +1,5 @@
 
+var LIBRARY_IDENTIFIER = 'libraryIdentifier';
 var WORLDCAT_ISBN_SEARCH_URL = 'http://xisbn.worldcat.org/webservices/xid/isbn/';
 var DONE = 4;
 var libraryServer = 'seattle.bibliocommons.com'; 
@@ -8,8 +9,8 @@ var libraryIsbnUrlPattern = 'http://' + libraryServer + '/search?custom_query=Id
 var libraryTitleUrlPattern = 'http://' + libraryServer + '/search?t=title&search_category=title&q='
 
 function getLibraryServerAndCall(nextFunction) {
-   chrome.extension.sendMessage({method: "getLocalStorage", key: "libraryServer"}, function(response) {
-      console.log('libraryServer: ' + response.data);
+   chrome.extension.sendMessage({method: "getLocalStorage", key: LIBRARY_IDENTIFIER}, function(response) {
+      console.log(LIBRARY_IDENTIFIER + ": " + response.data);
       libraryServer = response.data;
       libraryBaseName = libraryServer;
       libraryName = libraryBaseName; // TODO: should be name, not servername
