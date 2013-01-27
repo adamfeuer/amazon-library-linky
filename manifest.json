@@ -1,6 +1,6 @@
 {
-   "name": "Amazon Bibliocommons",
-   "version": "0.2.1",
+   "name": "Amazon Library Linky",
+   "version": "0.3",
    "description": "This extension searches libraries for books that you are viewing on Amazon.com. Works with any Bibliocommons library.",
    "icons" :  {  
                  "16" : "img/book16.png",
