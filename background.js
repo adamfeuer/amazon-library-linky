@@ -27,6 +27,7 @@ function getItem(key) {
 function onInstall() {
    console.log("Extension Installed");
    setItem(LIBRARY_IDENTIFIER, DEFAULT_LIBRARY);
+   setItem(LIBRARY_NAME, DEFAULT_LIBRARY_NAME);
 }
 
 function onUpdate() {

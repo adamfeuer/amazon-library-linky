@@ -1,6 +1,6 @@
 {
    "name": "Amazon Library Linky",
-   "version": "0.0.1",
+   "version": "0.0.2",
    "description": "This extension searches libraries for books that you are viewing on Amazon.com. Works with any Bibliocommons library.",
    "icons" :  {  
                  "16" : "img/book16.png",
@@ -25,7 +25,18 @@
    },
    "content_scripts": [
       {
-         "matches": ["http://www.amazon.com/*"],
+         "matches": [ 
+                      "http://www.amazon.com/*",
+                      "http://www.amazon.co.uk/*",
+                      "http://www.amazon.cn/*",
+                      "http://www.amazon.at/*",
+                      "http://www.amazon.ca/*",
+                      "http://www.amazon.fr/*",
+                      "http://www.amazon.de/*",
+                      "http://www.amazon.it/*",
+                      "http://www.amazon.co.jp/*",
+                      "http://www.amazon.es/*"
+                    ],
          "js": ["js/jquery-1.7.1.min.js", "constants.js", "linky.js"]
        }
    ],
